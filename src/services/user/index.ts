@@ -1,5 +1,4 @@
-import { User } from "@/_types/user/User.types"
-import { ListAllUsersResponse } from "@/_types/user/User.use-cases"
+import { FindUserByIdRequest, FindUserByIdResponse, ListAllUsersResponse } from "@/_types/user/User.use-cases"
 
 export async function listAllUsers(): Promise<ListAllUsersResponse | undefined> {
     try {
@@ -10,6 +9,19 @@ export async function listAllUsers(): Promise<ListAllUsersResponse | undefined> 
             throw new Error("Something went wrong")
         }
         return json.users
+    } catch (error: any) {
+        console.log({ error })
+    }
+}
+
+export async function findUserById({ id }: FindUserByIdRequest): Promise<FindUserByIdResponse | undefined> {
+    try {
+        const response = await fetch(`/api/user/${id}`)
+        const json = await response.json()
+        if (!json.user) {
+            throw new Error("Something went wrong")
+        }
+        return json.user
     } catch (error: any) {
         console.log({ error })
     }

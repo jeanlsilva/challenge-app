@@ -6,7 +6,9 @@ export interface UserContextData {
     methods: UseFormReturn<User>
     onSubmit: (values: User) => void
     list?: User[]
-    isLoading: boolean
+    isLoading: boolean,
+    selectedUser: User | undefined
+    setSelectedUser: React.Dispatch<React.SetStateAction<User | undefined>>
 }
 
 export interface UserProviderProps {

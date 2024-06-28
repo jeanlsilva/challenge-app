@@ -5,11 +5,7 @@ export async function GET() {
     try {
         const prisma = new PrismaClient()
 
-        const users = await prisma.user.findMany({
-            include: {
-                tasks: true
-            }
-        });
+        const users = await prisma.user.findMany();
 
         return NextResponse.json({ users })
     } catch (error: any) {

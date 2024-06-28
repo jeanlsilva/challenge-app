@@ -12,4 +12,8 @@ export const UserSchema = z.object({
 
 export const CreateUserInputSchema = UserSchema.omit({ id: true })
 
-export const ListUsersOutputSchema = z.array(UserSchema)
+export const ListAllUsersOutputSchema = z.array(UserSchema)
+
+export const FindUserByIdInputSchema = z.object({
+  id: z.string().optional()
+})

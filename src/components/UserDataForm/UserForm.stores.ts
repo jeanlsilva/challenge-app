@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware'
 import { UserFormStoreState } from './UserForm.types'
 
 const initialStates = {
-  id null,
+  id: null,
   name: '',
   email: '',
   address: '',

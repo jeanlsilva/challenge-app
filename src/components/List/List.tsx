@@ -1,17 +1,11 @@
 import { useUser } from "@/hooks/user/useUser";
-import { Button } from "../ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { ClipboardList } from "lucide-react";
 import { ListLoading } from "./List.loading";
 import { ListEmpty } from "./List.empty";
-import { useEffect } from "react";
+import { UserDataForm } from "../UserDataForm";
 
 export function List() {
     const { list, isLoading } = useUser()
-
-    useEffect(() => {
-        console.log({ list })
-    }, [list])
 
     if (isLoading) return <ListLoading />
 
@@ -26,7 +20,7 @@ export function List() {
                     <TableHead>Name</TableHead>
                     <TableHead>E-mail</TableHead>
                     <TableHead>Address</TableHead>
-                    <TableHead>Tasks</TableHead>
+                    <TableHead>Details</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -37,9 +31,7 @@ export function List() {
                         <TableCell>{user.email}</TableCell>
                         <TableCell>{user.address}</TableCell>
                         <TableCell>
-                            <Button variant="link">
-                                <ClipboardList />
-                            </Button>
+                            <UserDataForm user={user} />
                         </TableCell>
                     </TableRow>
                 ))}
