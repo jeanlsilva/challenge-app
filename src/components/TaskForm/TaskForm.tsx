@@ -1,6 +1,5 @@
 "use client"
 
-import { Task } from "@/_types/NestedForm.types"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "../ui/form"
 import { Input } from "../ui/input"
@@ -20,6 +19,7 @@ import {
     DrawerTrigger,
     DrawerPortal
   } from "@/components/ui/drawer"
+import { Task } from "@/_types/task/Task.types"
 
 export function TaskForm() {
     const form = useForm<Task>({
