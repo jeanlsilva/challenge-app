@@ -1,21 +1,36 @@
-import { Accordion, AccordionItem } from "@radix-ui/react-accordion";
-import { AccordionContent, AccordionTrigger } from "../ui/accordion";
+import { ListProps } from "./List.types";
+import { Button } from "../ui/button";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { ClipboardList } from "lucide-react";
 
-export function List() {
+export function List({ users }: ListProps) {
     return (
-        <Accordion type="multiple" className="flex-1">
-            <AccordionItem value="item-1">
-                <AccordionTrigger>User 1</AccordionTrigger>
-                <AccordionContent>
-                    User 1 data
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-                <AccordionTrigger>User 2</AccordionTrigger>
-                <AccordionContent>
-                    User 2 data
-                </AccordionContent>
-            </AccordionItem>
-        </Accordion>
+        <Table>
+            <TableCaption>Users list</TableCaption>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>E-mail</TableHead>
+                    <TableHead>Address</TableHead>
+                    <TableHead>Tasks</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {users.map((user) => (
+                    <TableRow key={user.id}>
+                        <TableCell>{user.id}</TableCell>
+                        <TableCell>{user.name}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>{user.address}</TableCell>
+                        <TableCell>
+                            <Button variant="link">
+                                <ClipboardList />
+                            </Button>
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
     )
 }
