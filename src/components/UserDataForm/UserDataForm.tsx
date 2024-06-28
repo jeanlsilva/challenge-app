@@ -74,7 +74,7 @@ export function UserDataForm() {
                                     )}
                                 />
                                 <TaskProvider>
-                                    <TaskForm userName={methods.watch("name")} />
+                                    <TaskForm />
                                 </TaskProvider>
                             </form>
                         </Form>

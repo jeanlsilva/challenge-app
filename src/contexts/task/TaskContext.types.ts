@@ -1,9 +1,10 @@
-import { User } from "@/_types/user/User.types";
+import { Task } from "@/_types/task/Task.types";
 import React from "react";
+import { UseFormReturn } from "react-hook-form";
 
 export interface TaskContextData {
-    user?: User
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+    methods: UseFormReturn<Task>
+    onSubmit: (values: Task) => void
 }
 
 export interface TaskProviderProps {

@@ -1,16 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import { TaskContextData, TaskProviderProps } from "./TaskContext.types";
-import { User } from "@/_types/user/User.types";
+import { useForm } from "react-hook-form";
+import { Task } from "@/_types/task/Task.types";
 
 export const TaskContext = createContext({} as TaskContextData)
 
 export default function TaskProvider({ children }: TaskProviderProps) {
-    const [user, setUser] = useState<User | undefined>()
+    const methods = useForm<Task>({
+        defaultValues: {
+            name: '',
+        },
+        mode: 'onChange'
+    })
+
+    function onSubmit(values: Task) {
+        console.log({ values })
+    }
     return (
         <TaskContext.Provider 
             value={{
-                user,
-                setUser
+                methods,
+                onSubmit
             }}
         >
             {children}

@@ -1,10 +1,23 @@
-import { ListProps } from "./List.types";
+import { useUser } from "@/hooks/user/useUser";
 import { Button } from "../ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { ClipboardList } from "lucide-react";
+import { ListLoading } from "./List.loading";
+import { ListEmpty } from "./List.empty";
+import { useEffect } from "react";
 
-export function List({ users }: ListProps) {
-    return (
+export function List() {
+    const { list, isLoading } = useUser()
+
+    useEffect(() => {
+        console.log({ list })
+    }, [list])
+
+    if (isLoading) return <ListLoading />
+
+    if (list?.length === 0) return <ListEmpty />
+
+    return list && (
         <Table>
             <TableCaption>Users list</TableCaption>
             <TableHeader>
@@ -17,7 +30,7 @@ export function List({ users }: ListProps) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {users.map((user) => (
+                {list.map((user) => (
                     <TableRow key={user.id}>
                         <TableCell>{user.id}</TableCell>
                         <TableCell>{user.name}</TableCell>
