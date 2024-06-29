@@ -1,7 +1,12 @@
 import { z } from "zod";
-import { CreateUserInputSchema, FindUserTasksInputSchema, ListAllUsersOutputSchema, UserSchema } from "./User.schema";
+import { 
+    CreateOrUpdateUserInputSchema, 
+    FindUserTasksInputSchema, 
+    ListAllUsersOutputSchema, 
+    UserSchema 
+} from "./User.schema";
 
-export type CreateUserRequest = z.infer<typeof CreateUserInputSchema>
+export type CreateUserRequest = z.infer<typeof CreateOrUpdateUserInputSchema>
 
 export type CreateUserResponse = z.infer<typeof UserSchema>
 

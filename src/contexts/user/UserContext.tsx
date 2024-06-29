@@ -1,19 +1,27 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { useForm } from "react-hook-form"
 import { User } from "@/_types/user/User.types"
 import { UserContextData, UserProviderProps } from "./UserContext.types";
-import { useFindUserTasksQuery, useListAllUsersQuery } from "@/queries/user/User.queries";
+import { useCreateUserMutation, useFindUserTasksQuery, useListAllUsersQuery } from "@/queries/user/User.queries";
 import { CreateUserRequest } from "@/_types/user/User.use-cases";
+import { useToast } from "@/components/ui/use-toast";
 
 export const UserContext = createContext({} as UserContextData)
 
 export function UserProvider({ children }: UserProviderProps) {
-    const { data: users, isLoading } = useListAllUsersQuery()
     const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined)
     const [editMode, setEditMode] = useState(false)
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+    const { toast } = useToast()
+
+    const { data: users, isLoading, refetch } = useListAllUsersQuery()
     const { data: tasks, isLoading: isLoadingTasks } = useFindUserTasksQuery({ id: selectedUser?.id })
+    const { mutate, isPending } = useCreateUserMutation()
+
     const methods = useForm<CreateUserRequest>({
         values: {
+            id: selectedUser?.id,
             name: selectedUser?.name || "",
             email: selectedUser?.email || "",
             address: selectedUser?.address || "",
@@ -23,12 +31,20 @@ export function UserProvider({ children }: UserProviderProps) {
     })
 
     function onSubmit(values: CreateUserRequest) {
-        console.log({ values })
+        mutate(
+            values,
+            {
+                onSuccess: () => {
+                    setIsDrawerOpen(false)
+                    methods.reset()
+                    refetch()
+                    toast({
+                        description: "User successfully created"
+                    })
+                },
+            }
+        )
     }
-
-    useEffect(() => {
-        console.log({ selectedUser })
-    }, [selectedUser])
 
     return (
         <UserContext.Provider 
@@ -37,14 +53,17 @@ export function UserProvider({ children }: UserProviderProps) {
                 onSubmit, 
                 users, 
                 isLoading, 
-                selectedUser, 
+                selectedUser,
                 setSelectedUser,
                 tasks,
                 isLoadingTasks,
                 editMode,
-                setEditMode
+                setEditMode,
+                isPending,
+                isDrawerOpen,
+                setIsDrawerOpen
             }}>
-            {children}
+                {children}
         </UserContext.Provider>
     )
 }

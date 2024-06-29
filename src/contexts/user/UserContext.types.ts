@@ -9,12 +9,15 @@ export interface UserContextData {
     onSubmit: (values: CreateUserRequest) => void
     users?: User[]
     isLoading: boolean,
-    selectedUser: User | undefined
+    selectedUser: User | undefined,
     setSelectedUser: React.Dispatch<React.SetStateAction<User | undefined>>
     tasks?: Task[] | null
     isLoadingTasks: boolean,
     editMode: boolean
     setEditMode: React.Dispatch<React.SetStateAction<boolean>>
+    isPending: boolean
+    isDrawerOpen: boolean
+    setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface UserProviderProps {

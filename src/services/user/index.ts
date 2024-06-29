@@ -1,5 +1,5 @@
 import { ListUserTasksRequest, ListUserTasksResponse } from "@/_types/task/Task.use-cases"
-import { FindUserTasksRequest, FindUserTasksResponse, ListAllUsersResponse } from "@/_types/user/User.use-cases"
+import { CreateUserRequest, CreateUserResponse, FindUserTasksRequest, FindUserTasksResponse, ListAllUsersResponse } from "@/_types/user/User.use-cases"
 
 export async function listAllUsers(): Promise<ListAllUsersResponse | undefined> {
     try {
@@ -24,6 +24,29 @@ export async function findUserTasks({ id }: ListUserTasksRequest): Promise<ListU
         }
         return json.tasks
     } catch (error: any) {
+        console.log({ error })
+    }
+}
+
+export async function createOrUpdateUser(request: CreateUserRequest): Promise<CreateUserResponse | undefined> {
+    try {
+        let url = '/api/user/create'
+        let method = 'POST'
+        if (request?.id) {
+            url = `/api/user/${request.id}/update`
+            method = 'PUT'
+        }
+        const response = await fetch(url, {
+            method,
+            body: JSON.stringify(request),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        const json = await response.json()
+        if (!json.user) throw new Error("Something went wrong")
+        return json.user
+    } catch (error) {
         console.log({ error })
     }
 }

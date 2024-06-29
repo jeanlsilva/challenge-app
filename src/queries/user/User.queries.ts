@@ -1,7 +1,7 @@
 import { ListUserTasksRequest } from "@/_types/task/Task.use-cases";
-import { FindUserTasksRequest } from "@/_types/user/User.use-cases";
-import { findUserTasks, listAllUsers } from "@/services/user";
-import { useQuery } from "@tanstack/react-query";
+import { CreateUserRequest } from "@/_types/user/User.use-cases";
+import { createOrUpdateUser, findUserTasks, listAllUsers } from "@/services/user";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useListAllUsersQuery() {
     const query = useQuery({
@@ -24,5 +24,16 @@ export function useFindUserTasksQuery({ id }: ListUserTasksRequest) {
     return {
         ...query,
         data: query.data
+    }
+}
+
+export function useCreateUserMutation() {
+    const mutation = useMutation({
+        mutationFn: (request: CreateUserRequest) => createOrUpdateUser(request),
+    })
+
+    return {
+        ...mutation,
+        data: mutation.data
     }
 }

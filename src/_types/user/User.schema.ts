@@ -10,7 +10,9 @@ export const UserSchema = z.object({
     tasks: z.array(TaskSchema)
 })
 
-export const CreateUserInputSchema = UserSchema.omit({ id: true })
+export const CreateOrUpdateUserInputSchema = UserSchema.omit({ id: true }).extend({
+  id: z.string().optional()
+})
 
 export const ListAllUsersOutputSchema = z.array(UserSchema)
 
