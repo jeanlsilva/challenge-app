@@ -16,7 +16,8 @@ export function UserProvider({ children }: UserProviderProps) {
     const { toast } = useToast()
 
     const { data: users, isLoading, refetch } = useListAllUsersQuery()
-    const { data: tasks, isLoading: isLoadingTasks } = useFindUserTasksQuery({ id: selectedUser?.id })
+    const { data: tasks, isLoading: isLoadingTasks, refetch: refetchListUserTasks } = 
+        useFindUserTasksQuery({ id: selectedUser?.id })
     const { mutate, isPending } = useCreateUserMutation()
 
     const methods = useForm<CreateUserRequest>({
@@ -61,7 +62,8 @@ export function UserProvider({ children }: UserProviderProps) {
                 setEditMode,
                 isPending,
                 isDrawerOpen,
-                setIsDrawerOpen
+                setIsDrawerOpen,
+                refetchListUserTasks
             }}>
                 {children}
         </UserContext.Provider>

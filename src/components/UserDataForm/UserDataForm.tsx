@@ -24,7 +24,6 @@ import TaskProvider from "@/contexts/task/TaskContext"
 import { useUser } from "@/hooks/user/useUser"
 import { InfoIcon, Loader, PlusCircle } from "lucide-react"
 import { UserDataFormProps } from "./UserForm.types"
-import { Toast } from "../ui/toast"
 import { Toaster } from "../ui/toaster"
 
 export function UserDataForm({ user }: UserDataFormProps) {
@@ -42,9 +41,13 @@ export function UserDataForm({ user }: UserDataFormProps) {
     const viewMode = selectedUser && !editMode
 
     return (
-        <Drawer direction="right" open={isDrawerOpen} onOpenChange={(open) => setIsDrawerOpen(open)}>
+        <Drawer 
+            direction="right" 
+            open={user?.id === selectedUser?.id && isDrawerOpen} 
+            onOpenChange={(open) => setIsDrawerOpen(open)}
+        >
             <DrawerTrigger asChild>
-                <Button className="mt-2" onClick={() => user ? setSelectedUser(user) : setEditMode(false)}>
+                <Button className="mt-2" onClick={() => setSelectedUser(user)}>
                     {user ? <InfoIcon /> : <PlusCircle />}
                 </Button>
             </DrawerTrigger>

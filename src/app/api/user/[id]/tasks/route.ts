@@ -11,7 +11,7 @@ interface RequestParams {
 
 export async function GET(request: NextRequest, { params }: RequestParams) {
     const { id: userId } = params
-    const user = await prisma.task.findMany({ where: { userId }})
+    const tasks = await prisma.task.findMany({ where: { userId }})
 
-    return NextResponse.json({ user })
+    return NextResponse.json({ tasks })
 }

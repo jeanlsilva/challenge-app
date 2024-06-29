@@ -7,12 +7,13 @@ import { Button } from "../ui/button"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
 import { useTask } from "@/hooks/task/useTask"
 import { DatePicker } from "../DatePicker"
+import { Loader } from "lucide-react"
 
 export function TaskForm() {
-    const { methods, onSubmit } = useTask()
+    const { methods, onSubmit, popoverIsOpen, setPopoverIsOpen, isPending } = useTask()
 
     return (
-        <Popover>
+        <Popover open={popoverIsOpen} onOpenChange={(open) => setPopoverIsOpen(open)}>
             <PopoverTrigger asChild>
                 <Button variant="link">New Task</Button>
             </PopoverTrigger>
@@ -67,7 +68,10 @@ export function TaskForm() {
                             <PopoverClose asChild>
                                 <Button variant="outline">Cancel</Button>
                             </PopoverClose>
-                            <Button type="submit">Submit</Button>
+                            <Button type="submit">
+                                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                                Submit
+                            </Button>
                         </div>
                     </form>
                 </Form>
