@@ -163,7 +163,7 @@ export function UserDataForm({ user }: UserDataFormProps) {
                                 />
                             </form>
                         </Form>
-                        {editMode && (
+                        {selectedUser && editMode && (
                             <TaskProvider>
                                 <TaskForm />
                             </TaskProvider>
