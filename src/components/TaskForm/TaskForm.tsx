@@ -1,6 +1,6 @@
 "use client"
 
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "../ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form"
 import { Input } from "../ui/input"
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover"
 import { Button } from "../ui/button"
@@ -17,11 +17,11 @@ export function TaskForm() {
             <PopoverTrigger asChild>
                 <Button variant="link" className="p-0 absolute top-[44%]">New Task</Button>
             </PopoverTrigger>
-            <PopoverContent className="bg-primary p-4 rounded-sm w-[400px]">
+            <PopoverContent className="bg-primary p-4 rounded-sm w-[400px] border-2 border-secondary">
                 <div className="flex justify-between items-center">
                     <h4 className="text-xl text-primary-foreground">Create new task</h4>
                     <PopoverClose asChild>
-                        <Button variant="link" className="p-0 text-primary-foreground">
+                        <Button variant="link" className="p-0 text-primary-foreground hover:text-secondary">
                             <XCircle />
                         </Button>
                     </PopoverClose>
@@ -52,7 +52,7 @@ export function TaskForm() {
                                 control={methods.control}
                                 name="priority"
                                 render={({ field }) => (
-                                    <FormItem className="space-y-1">
+                                    <FormItem className="space-y-1 w-2/5">
                                         <FormLabel className="text-primary-foreground">Priority</FormLabel>
                                         <FormControl>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -74,7 +74,10 @@ export function TaskForm() {
                             />
                         </div>
                         <div className="flex flex-col gap-2 mt-4">
-                            <Button type="submit" className="bg-secondary">
+                            <Button 
+                                type="submit" 
+                                className="bg-secondary transition ease-in-out duration-500 hover:bg-secondary hover:border hover:border-primary-foreground"
+                            >
                                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
                                 Submit
                             </Button>

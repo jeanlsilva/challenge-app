@@ -138,18 +138,16 @@ export function UserDataForm({ user }: UserDataFormProps) {
                             </Accordion>
                         ) : <></>}
                     </div>
-                    <DrawerFooter>
+                    <DrawerFooter className="h-[120px] py-4">
+                        <Button type="submit" form="userForm" disabled={isPending} className={viewMode ? "invisible" : ""}>
+                            {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" /> }
+                            Submit
+                        </Button>
                         <DrawerClose asChild>
                             <Button variant="outline" onClick={() => setSelectedUser(undefined)}>
                                 {!viewMode ? "Cancel" : "Close"}
                             </Button>
                         </DrawerClose>
-                        {!viewMode && (
-                            <Button type="submit" form="userForm" disabled={isPending}>
-                                {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" /> }
-                                Submit
-                            </Button>
-                        )}
                     </DrawerFooter>
                 </DrawerContent>
             </DrawerPortal>
