@@ -10,14 +10,14 @@ export const TaskContext = createContext({} as TaskContextData)
 
 export default function TaskProvider({ children }: TaskProviderProps) {
     const { mutate, isPending } = useCreateTaskMutation()
-    const { refetchListUserTasks } = useUser()
+    const { refetchListUserTasks, selectedUser } = useUser()
     const [popoverIsOpen, setPopoverIsOpen] = useState(false)
 
     const { toast } = useToast()
 
     const methods = useForm<Task>({
         defaultValues: {
-            name: '',
+            userId: selectedUser?.id
         },
         mode: 'onChange'
     })
@@ -28,6 +28,7 @@ export default function TaskProvider({ children }: TaskProviderProps) {
             {
                 onSuccess: () => {
                     setPopoverIsOpen(false)
+                    methods.reset()
                     refetchListUserTasks()
                     toast({
                         description: "Task created successfully"

@@ -25,6 +25,10 @@ import { useUser } from "@/hooks/user/useUser"
 import { InfoIcon, Loader, PlusCircle } from "lucide-react"
 import { UserDataFormProps } from "./UserForm.types"
 import { Toaster } from "../ui/toaster"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
+import { Skeleton } from "../ui/skeleton"
+import { format } from "date-fns"
+import { AccordionHeader } from "@radix-ui/react-accordion"
 
 export function UserDataForm({ user }: UserDataFormProps) {
     const { 
@@ -37,6 +41,8 @@ export function UserDataForm({ user }: UserDataFormProps) {
         setIsDrawerOpen, 
         selectedUser, 
         setSelectedUser,
+        tasks,
+        isLoadingTasks
     } = useUser()
     const viewMode = selectedUser && !editMode
 
@@ -103,11 +109,34 @@ export function UserDataForm({ user }: UserDataFormProps) {
                                         </FormItem>
                                     )}
                                 />
-                                <TaskProvider>
-                                    <TaskForm />
-                                </TaskProvider>
                             </form>
                         </Form>
+                        {editMode && (
+                            <TaskProvider>
+                                <TaskForm />
+                            </TaskProvider>
+                        )}
+                        {isLoadingTasks ? (
+                            <div className="flex flex-col gap-2 mt-10">
+                                {Array.from({ length: 6 }).map((_, i) => (
+                                    <Skeleton key={i} className="h-8 rounded-md" />
+                                ))}
+                            </div>
+                        ) : tasks ? (
+                            <Accordion type="single" collapsible className="mt-10 h-64 overflow-y-auto">
+                                <hr />
+                                {tasks.length > 0 && <h3 className="mt-4">Tasks</h3>}
+                                {tasks.map((task) => (
+                                    <AccordionItem key={task.id} value={task.id}>
+                                        <AccordionTrigger>{task.name}</AccordionTrigger>
+                                        <AccordionContent>
+                                            <p>Due date: {format(task.dueDate, "PPP")}</p>
+                                            <p>Priority: {task.priority}</p>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                ))}
+                            </Accordion>
+                        ) : <></>}
                     </div>
                     <DrawerFooter>
                         <DrawerClose asChild>

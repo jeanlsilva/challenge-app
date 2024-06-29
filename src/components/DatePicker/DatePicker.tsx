@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 export function DatePicker({ field }: DatePickerProps) {
     return (
-        <FormItem>
+        <FormItem className="flex flex-col mt-1 flex-1">
             <FormLabel>Due date</FormLabel>
             <FormControl>
                 <Popover>
@@ -17,7 +17,7 @@ export function DatePicker({ field }: DatePickerProps) {
                         <Button
                             variant="outline"
                             className={cn(
-                                "w-[280px] justify-start text-left font-normal",
+                                "justify-start text-left font-normal",
                                 !field.value && "text-muted-foreground"
                             )}
                         >
@@ -31,6 +31,7 @@ export function DatePicker({ field }: DatePickerProps) {
                             selected={field.value}
                             onSelect={field.onChange}
                             initialFocus
+
                         />
                     </PopoverContent>
                 </Popover>
