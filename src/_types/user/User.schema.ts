@@ -14,7 +14,14 @@ export const CreateOrUpdateUserInputSchema = UserSchema.omit({ id: true }).exten
   id: z.string().optional()
 })
 
-export const ListAllUsersOutputSchema = z.array(UserSchema)
+export const ListAllUsersInputSchema = z.object({
+  page: z.number().optional()
+})
+
+export const ListAllUsersOutputSchema = z.object({
+  users: z.array(UserSchema),
+  total: z.number()
+})
 
 export const FindUserTasksInputSchema = z.object({
   id: z.string().optional()

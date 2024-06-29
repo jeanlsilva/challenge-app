@@ -12,10 +12,11 @@ export function UserProvider({ children }: UserProviderProps) {
     const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined)
     const [editMode, setEditMode] = useState(false)
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const [page, setPage] = useState(1)
 
     const { toast } = useToast()
 
-    const { data: users, isLoading, refetch } = useListAllUsersQuery()
+    const { data: usersData, isLoading, refetch } = useListAllUsersQuery({ page })
     const { data: tasks, isLoading: isLoadingTasks, refetch: refetchListUserTasks } = 
         useFindUserTasksQuery({ id: selectedUser?.id })
     const { mutate, isPending } = useCreateUserMutation()
@@ -52,7 +53,7 @@ export function UserProvider({ children }: UserProviderProps) {
             value={{ 
                 methods, 
                 onSubmit, 
-                users, 
+                usersData, 
                 isLoading, 
                 selectedUser,
                 setSelectedUser,
@@ -63,7 +64,9 @@ export function UserProvider({ children }: UserProviderProps) {
                 isPending,
                 isDrawerOpen,
                 setIsDrawerOpen,
-                refetchListUserTasks
+                refetchListUserTasks,
+                page,
+                setPage
             }}>
                 {children}
         </UserContext.Provider>

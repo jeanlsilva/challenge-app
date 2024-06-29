@@ -1,12 +1,12 @@
 import { ListUserTasksRequest } from "@/_types/task/Task.use-cases";
-import { CreateUserRequest } from "@/_types/user/User.use-cases";
+import { CreateUserRequest, ListAllUsersRequest } from "@/_types/user/User.use-cases";
 import { createOrUpdateUser, findUserTasks, listAllUsers } from "@/services/user";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-export function useListAllUsersQuery() {
+export function useListAllUsersQuery({ page }: ListAllUsersRequest) {
     const query = useQuery({
-        queryKey: ['/user'],
-        queryFn: listAllUsers
+        queryKey: ['/user', page],
+        queryFn: () => listAllUsers({ page })
     })
 
     return {

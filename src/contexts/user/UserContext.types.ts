@@ -9,7 +9,10 @@ import { UseFormReturn } from "react-hook-form";
 export interface UserContextData {
     methods: UseFormReturn<CreateUserRequest>
     onSubmit: (values: CreateUserRequest) => void
-    users?: User[]
+    usersData?: {
+        users?: User[]
+        total: number
+    }
     isLoading: boolean,
     selectedUser: User | undefined,
     setSelectedUser: React.Dispatch<React.SetStateAction<User | undefined>>
@@ -21,6 +24,8 @@ export interface UserContextData {
     isDrawerOpen: boolean
     setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
     refetchListUserTasks: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<ListUserTasksResponse | null | undefined>>
+    page: number
+    setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
 export interface UserProviderProps {

@@ -3,15 +3,19 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { ListLoading } from "./List.loading";
 import { ListEmpty } from "./List.empty";
 import { UserDataForm } from "../UserDataForm";
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "../ui/pagination";
+import { USERS_PER_PAGE } from "@/constants";
+import { Button } from "../ui/button";
 
 export function List() {
-    const { users, isLoading } = useUser()
+    const { usersData, isLoading, page, setPage } = useUser()
 
     if (isLoading) return <ListLoading />
 
-    if (users?.length === 0) return <ListEmpty />
+    if (usersData?.users?.length === 0) return <ListEmpty />
 
-    return users && (
+    return usersData?.users && (
+        <>
         <Table>
             <TableCaption>Users list</TableCaption>
             <TableHeader>
@@ -24,7 +28,7 @@ export function List() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {users.map((user) => (
+                {usersData.users.map((user) => (
                     <TableRow key={user.id}>
                         <TableCell>{user.id}</TableCell>
                         <TableCell>{user.name}</TableCell>
@@ -37,5 +41,27 @@ export function List() {
                 ))}
             </TableBody>
         </Table>
+        {usersData.total / USERS_PER_PAGE > 1 && (
+        <Pagination>
+            <PaginationContent>
+                {page > 1 && (
+                    <PaginationItem>
+                        <PaginationPrevious onClick={() => setPage(page - 1)} />
+                    </PaginationItem>
+                )}
+                {Array.from({ length: Math.ceil(usersData.total / USERS_PER_PAGE) }, (_, i) => i + 1).map((v, i) => (
+                    <PaginationItem key={i}>
+                        <Button variant={page === v ? "default" : "link"} onClick={() => setPage(v)}>{v}</Button>
+                    </PaginationItem>
+                ))}
+                {page < Math.ceil(usersData.total / USERS_PER_PAGE) && (
+                    <PaginationItem>
+                        <PaginationNext onClick={() => setPage(page + 1)} />
+                    </PaginationItem>
+                )}
+            </PaginationContent>
+        </Pagination>
+        )}
+        </>
     )
 }
