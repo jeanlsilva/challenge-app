@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export function DatePicker({ field }: DatePickerProps) {
     return (
         <FormItem className="flex flex-col mt-1 flex-1">
-            <FormLabel>Due date</FormLabel>
+            <FormLabel className="text-primary-foreground">Due date</FormLabel>
             <FormControl>
                 <Popover>
                     <PopoverTrigger asChild>

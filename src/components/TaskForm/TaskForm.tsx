@@ -17,11 +17,13 @@ export function TaskForm() {
             <PopoverTrigger asChild>
                 <Button variant="link" className="p-0 absolute top-[44%]">New Task</Button>
             </PopoverTrigger>
-            <PopoverContent className="bg-red-300 p-4 rounded-sm w-[400px]">
+            <PopoverContent className="bg-primary p-4 rounded-sm w-[400px]">
                 <div className="flex justify-between items-center">
-                    <h4 className="text-xl">Create new task</h4>
+                    <h4 className="text-xl text-primary-foreground">Create new task</h4>
                     <PopoverClose asChild>
-                        <Button variant="link" className="p-0"><XCircle /></Button>
+                        <Button variant="link" className="p-0 text-primary-foreground">
+                            <XCircle />
+                        </Button>
                     </PopoverClose>
                 </div>
                 <Form {...methods}>
@@ -31,7 +33,7 @@ export function TaskForm() {
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Task name</FormLabel>
+                                    <FormLabel className="text-primary-foreground">Task name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Task name" {...field} />
                                     </FormControl>
@@ -51,7 +53,7 @@ export function TaskForm() {
                                 name="priority"
                                 render={({ field }) => (
                                     <FormItem className="space-y-1">
-                                        <FormLabel>Priority</FormLabel>
+                                        <FormLabel className="text-primary-foreground">Priority</FormLabel>
                                         <FormControl>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <SelectTrigger>
@@ -72,7 +74,7 @@ export function TaskForm() {
                             />
                         </div>
                         <div className="flex flex-col gap-2 mt-4">
-                            <Button type="submit">
+                            <Button type="submit" className="bg-secondary">
                                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
                                 Submit
                             </Button>

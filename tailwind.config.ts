@@ -18,6 +18,10 @@ const config = {
         "2xl": "1400px",
       },
     },
+    colors: {
+      primary: "#F17A83",
+      secondary: "#265e84"
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
