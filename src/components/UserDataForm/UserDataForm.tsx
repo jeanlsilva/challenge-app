@@ -53,7 +53,7 @@ export function UserDataForm({ user }: UserDataFormProps) {
             onOpenChange={(open) => setIsDrawerOpen(open)}
         >
             <DrawerTrigger asChild>
-                <Button className="mt-2" onClick={() => setSelectedUser(user)}>
+                <Button className="bg-primary mt-2" onClick={() => setSelectedUser(user)}>
                     {user ? <InfoIcon /> : <PlusCircle />}
                 </Button>
             </DrawerTrigger>
