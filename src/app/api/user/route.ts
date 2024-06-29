@@ -1,11 +1,9 @@
 import { USERS_PER_PAGE } from "@/constants";
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/../prisma/prismaClient"
 
 export async function GET(request: NextRequest) {
     try {
-        const prisma = new PrismaClient()
-
         const searchParams = request.nextUrl.searchParams
         const page = searchParams.get('page')
 

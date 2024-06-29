@@ -1,13 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/../prisma/prismaClient"
 
 interface RequestParams {
     params: {
         id: string
     }
 }
-
-const prisma = new PrismaClient()
 
 export async function PUT(request: NextRequest, { params }: RequestParams) {
     const json = await request.json()

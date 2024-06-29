@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { prisma } from "@/../prisma/prismaClient"
 async function main() {
   const kenzi = await prisma.user.create({
     data: {
