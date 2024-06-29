@@ -9,7 +9,9 @@ export const TaskSchema = z.object({
     userId: z.string()
 })
 
-export const CreateTaskInputSchema = TaskSchema.omit({ id: true })
+export const CreateTaskInputSchema = TaskSchema.omit({ id: true }).extend({
+    id: z.string().optional()
+})
 
 export const ListUserTasksInputSchema = z.object({
     id: z.string().uuid().optional()

@@ -6,6 +6,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
+    FormMessage,
   } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -28,7 +29,8 @@ import { Toaster } from "../ui/toaster"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion"
 import { Skeleton } from "../ui/skeleton"
 import { format } from "date-fns"
-import { AccordionHeader } from "@radix-ui/react-accordion"
+import { Tooltip, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
+import { TooltipContent } from "../ui/tooltip"
 
 export function UserDataForm({ user }: UserDataFormProps) {
     const { 
@@ -60,7 +62,7 @@ export function UserDataForm({ user }: UserDataFormProps) {
             <DrawerPortal>
                 <DrawerOverlay />
                 <DrawerContent className="h-full rounded-none w-[400px] left-auto mt-24 fixed bottom-0">
-                    <DrawerHeader>
+                    <DrawerHeader className="pb-0">
                         {selectedUser ? (
                             <div className="flex justify-between">
                                 <h2 className="text-2xl font-bold">{editMode ? "Edit user" : "View user details"}</h2>
@@ -70,17 +72,33 @@ export function UserDataForm({ user }: UserDataFormProps) {
                             </div>
                         ) : <h2 className="text-2xl font-bold">Create new user</h2>}
                     </DrawerHeader>
-                    <div className="flex-1 p-4">
+                    <div className="flex-1 p-4 py-0">
                         <Form {...methods}>
                             <form onSubmit={methods.handleSubmit(onSubmit)} id="userForm">
                                 <FormField
                                     control={methods.control}
                                     name="name"
-                                    render={({ field }) => (
-                                        <FormItem>
+                                    render={({ field, fieldState: { error } }) => (
+                                        <FormItem className="mt-2">
                                             <FormLabel>Name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="name" disabled={viewMode} {...field} />
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Input 
+                                                                placeholder="name" 
+                                                                disabled={viewMode} 
+                                                                className={error ? "text-destructive border-destructive" : ""}
+                                                                {...field} 
+                                                            />
+                                                        </TooltipTrigger>
+                                                        {error?.message && (
+                                                            <TooltipContent>
+                                                                <p>{error?.message}</p>
+                                                            </TooltipContent>
+                                                        )}
+                                                    </Tooltip>
+                                                </TooltipProvider>
                                             </FormControl>
                                         </FormItem>
                                     )}
@@ -88,11 +106,28 @@ export function UserDataForm({ user }: UserDataFormProps) {
                                 <FormField
                                     control={methods.control}
                                     name="email"
-                                    render={({ field }) => (
-                                        <FormItem>
+                                    render={({ field, fieldState: { error } }) => (
+                                        <FormItem className="mt-2">
                                             <FormLabel>E-mail</FormLabel>
                                             <FormControl>
-                                                <Input type="email" placeholder="email" disabled={viewMode} {...field} />
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Input 
+                                                                type="email" 
+                                                                placeholder="email" 
+                                                                disabled={viewMode} 
+                                                                className={error ? "text-destructive border-destructive" : ""}
+                                                                {...field}
+                                                            />
+                                                        </TooltipTrigger>
+                                                        {error?.message && (
+                                                            <TooltipContent>
+                                                                <p>{error?.message}</p>
+                                                            </TooltipContent>
+                                                        )}
+                                                    </Tooltip>
+                                                </TooltipProvider>
                                             </FormControl>
                                         </FormItem>
                                     )}
@@ -100,11 +135,27 @@ export function UserDataForm({ user }: UserDataFormProps) {
                                 <FormField
                                     control={methods.control}
                                     name="address"
-                                    render={({ field }) => (
-                                        <FormItem>
+                                    render={({ field, fieldState: { error } }) => (
+                                        <FormItem className="mt-2">
                                             <FormLabel>Address</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="address" disabled={viewMode} {...field} />
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                            <Input 
+                                                                placeholder="address" 
+                                                                disabled={viewMode} 
+                                                                className={error ? "text-destructive border-destructive" : ""}
+                                                                {...field} 
+                                                            />
+                                                        </TooltipTrigger>
+                                                        {error?.message && (
+                                                            <TooltipContent>
+                                                                <p>{error?.message}</p>
+                                                            </TooltipContent>
+                                                        )}
+                                                    </Tooltip>
+                                                </TooltipProvider>
                                             </FormControl>
                                         </FormItem>
                                     )}

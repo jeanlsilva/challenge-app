@@ -1,6 +1,6 @@
-import { Task } from "@/_types/task/Task.types";
+import { CreateTaskRequest } from "@/_types/task/Task.use-cases";
 import { ControllerRenderProps } from "react-hook-form";
 
 export interface DatePickerProps {
-    field: ControllerRenderProps<Task, "dueDate">
+    field: ControllerRenderProps<CreateTaskRequest, "dueDate">
 }
