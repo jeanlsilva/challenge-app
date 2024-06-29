@@ -5,13 +5,13 @@ import { ListEmpty } from "./List.empty";
 import { UserDataForm } from "../UserDataForm";
 
 export function List() {
-    const { list, isLoading } = useUser()
+    const { users, isLoading } = useUser()
 
     if (isLoading) return <ListLoading />
 
-    if (list?.length === 0) return <ListEmpty />
+    if (users?.length === 0) return <ListEmpty />
 
-    return list && (
+    return users && (
         <Table>
             <TableCaption>Users list</TableCaption>
             <TableHeader>
@@ -24,7 +24,7 @@ export function List() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {list.map((user) => (
+                {users.map((user) => (
                     <TableRow key={user.id}>
                         <TableCell>{user.id}</TableCell>
                         <TableCell>{user.name}</TableCell>

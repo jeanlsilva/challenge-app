@@ -1,5 +1,6 @@
-import { FindUserByIdRequest } from "@/_types/user/User.use-cases";
-import { findUserById, listAllUsers } from "@/services/user";
+import { ListUserTasksRequest } from "@/_types/task/Task.use-cases";
+import { FindUserTasksRequest } from "@/_types/user/User.use-cases";
+import { findUserTasks, listAllUsers } from "@/services/user";
 import { useQuery } from "@tanstack/react-query";
 
 export function useListAllUsersQuery() {
@@ -14,10 +15,10 @@ export function useListAllUsersQuery() {
     }
 }
 
-export function useFindUserByIdQuery({ id }: FindUserByIdRequest) {
+export function useFindUserTasksQuery({ id }: ListUserTasksRequest) {
     const query = useQuery({
-        queryKey: ['/user', id],
-        queryFn: () => id ? findUserById({ id }) : null,
+        queryKey: ['/tasks', id],
+        queryFn: () => id ? findUserTasks({ id }) : null,
     })
 
     return {
