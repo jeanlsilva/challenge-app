@@ -35,12 +35,8 @@ export function UserProvider({ children }: UserProviderProps) {
         resolver: zodResolver(CreateOrUpdateUserInputSchema)
     })
 
-    useEffect(() => {
-        console.log(methods.formState)
-    }, [methods.formState])
-
     function onSubmit(values: CreateUserRequest) {
-        /*mutate(
+        mutate(
             values,
             {
                 onSuccess: () => {
@@ -52,7 +48,7 @@ export function UserProvider({ children }: UserProviderProps) {
                     })
                 },
             }
-        )*/
+        )   
     }
 
     return (

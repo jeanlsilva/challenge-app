@@ -3,7 +3,8 @@ import { TaskPriority } from "./Task.types"
 
 export const TaskSchema = z.object({
     id: z.string(),
-    name: z.string({ required_error: "Task name is required." }),
+    name: z.string({ required_error: "Task name is required." })
+        .min(5, "Task name must have at leat 5 characters"),
     dueDate: z.date({ required_error: "Task due date is required" }),
     priority: z.nativeEnum(TaskPriority),
     userId: z.string()

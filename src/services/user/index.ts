@@ -5,7 +5,6 @@ export async function listAllUsers({ page }: ListAllUsersRequest): Promise<ListA
     try {
         const response = await fetch(`/api/user?page=${page ?? 0}`)
         const json = await response.json()
-        console.log({ json })
         if (!json.users) {
             throw new Error("Something went wrong")
         }

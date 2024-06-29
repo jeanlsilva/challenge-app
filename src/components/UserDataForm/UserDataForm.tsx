@@ -6,7 +6,6 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
   } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -19,6 +18,7 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerPortal,
+    DrawerTitle,
     DrawerTrigger
   } from "@/components/ui/drawer"
 import TaskProvider from "@/contexts/task/TaskContext"
@@ -60,6 +60,7 @@ export function UserDataForm({ user }: UserDataFormProps) {
                 </Button>
             </DrawerTrigger>
             <DrawerPortal>
+                <DrawerTitle className="invisible">User Form</DrawerTitle>
                 <DrawerOverlay />
                 <DrawerContent className="h-full rounded-none w-[400px] left-auto mt-24 fixed bottom-0">
                     <DrawerHeader className="pb-0">
@@ -190,7 +191,12 @@ export function UserDataForm({ user }: UserDataFormProps) {
                         ) : <></>}
                     </div>
                     <DrawerFooter className="h-[120px] py-4">
-                        <Button type="submit" form="userForm" disabled={isPending} className={viewMode ? "invisible" : ""}>
+                        <Button 
+                            type="submit" 
+                            form="userForm" 
+                            disabled={isPending || !methods.formState.isValid} 
+                            className={viewMode ? "invisible" : ""}
+                        >
                             {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" /> }
                             Submit
                         </Button>

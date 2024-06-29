@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { useTask } from "@/hooks/task/useTask"
 import { DatePicker } from "../DatePicker"
 import { Loader, XCircle } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 
 export function TaskForm() {
     const { methods, onSubmit, popoverIsOpen, setPopoverIsOpen, isPending } = useTask()
@@ -31,11 +32,26 @@ export function TaskForm() {
                         <FormField
                             control={methods.control}
                             name="name"
-                            render={({ field }) => (
+                            render={({ field, fieldState: { error } }) => (
                                 <FormItem>
                                     <FormLabel className="text-primary-foreground">Task name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Task name" {...field} />
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger asChild>
+                                                    <Input 
+                                                        placeholder="Type the task name" 
+                                                        className={error ? "text-destructive border-destructive" : ""}
+                                                        {...field} 
+                                                    />
+                                                </TooltipTrigger>
+                                                {error && (
+                                                    <TooltipContent>
+                                                        <p>{error.message}</p>
+                                                    </TooltipContent>
+                                                )}
+                                            </Tooltip>
+                                        </TooltipProvider>
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -76,6 +92,7 @@ export function TaskForm() {
                         <div className="flex flex-col gap-2 mt-4">
                             <Button 
                                 type="submit" 
+                                disabled={isPending || !methods.formState.isValid}
                                 className="bg-secondary transition ease-in-out duration-500 hover:bg-secondary hover:border hover:border-primary-foreground"
                             >
                                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}

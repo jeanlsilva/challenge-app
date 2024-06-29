@@ -1,7 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { TaskContextData, TaskProviderProps } from "./TaskContext.types";
 import { useForm } from "react-hook-form";
-import { Task } from "@/_types/task/Task.types";
 import { useCreateTaskMutation } from "@/queries/task/Task.queries";
 import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@/hooks/user/useUser";

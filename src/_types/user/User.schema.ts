@@ -8,7 +8,8 @@ export const UserSchema = z.object({
       .max(20, "Name must have up to 20 characters"),
     email: z.string({ required_error: "E-mail is required."})
       .email("You must provide a valid email address"),
-    address: z.string({ required_error: "Address is required" }),
+    address: z.string({ required_error: "Address is required" })
+      .min(5, "Address must have at least 5 characters"),
     tasks: z.array(TaskSchema)
 })
 
